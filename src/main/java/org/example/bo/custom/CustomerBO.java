@@ -9,5 +9,5 @@ public interface CustomerBO {
     public boolean update(CustomerDTO customerDTO);
     public boolean delete(CustomerDTO customerDTO);
     public boolean search(CustomerDTO customerDTO);
-//    public ArrayList<CustomerDTO> getAllCustomers();
+    public ArrayList<CustomerDTO> getAllCustomers();
 }

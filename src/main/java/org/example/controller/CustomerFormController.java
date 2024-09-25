@@ -28,33 +28,34 @@ public class CustomerFormController {
     public TableColumn<?, ?> clmEmail;
     public TableColumn<?, ?> clmContact;
     CustomerBO customerBO = new CustomerBOImpl();
-//    public void initialize() throws ClassNotFoundException {
-//        setCellValueFactory();
-//        loadAllCustomer();
-//    }
-//    private void setCellValueFactory(){
-//        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-//        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
-//        colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
-//        colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
-//        colTel.setCellValueFactory(new PropertyValueFactory<>("tel"));
-//
-//    }
-//
-//    private void loadAllCustomer() throws ClassNotFoundException {
-//        tblCustomer.getItems().clear();
+    public void initialize() throws ClassNotFoundException {
+        setCellValueFactory();
+        loadAllCustomer();
+    }
+    private void setCellValueFactory(){
+        clmId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        clmName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        clmAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+        clmEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+        clmContact.setCellValueFactory(new PropertyValueFactory<>("tel"));
+
+    }
+
+    private void loadAllCustomer() throws ClassNotFoundException {
+        tblCustomer.getItems().clear();
 //        try {
 //            /*Get all customers*/
 //            ArrayList<CustomerDTO> allCustomers = customerBO.getAllCustomers();
-//
+
 //            for (CustomerDTO c : allCustomers) {
-//                tblCustomer.getItems().add(new CustomerDTO(c.getId(), c.getName(), c.getAddress(),c.getTel(),c.getEmail()));
-//        } catch (SQLException e) {
-//            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-//        } catch (ClassNotFoundException e) {
-//            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+//                tblCustomer.getItems().add(new CustomerDTO(c.getId(), c.getName(), c.getAddress(), c.getTel(), c.getEmail()));
+//            } catch(SQLException e){
+//                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+//            } catch(ClassNotFoundException e){
+//                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+//            }
 //        }
-//    }
+    }
 
 
     public void txtIdOnAction(ActionEvent actionEvent) {

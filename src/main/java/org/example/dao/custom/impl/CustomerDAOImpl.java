@@ -5,10 +5,10 @@ import org.example.dao.custom.CustomerDAO;
 import org.example.entity.Customer;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CustomerDAOImpl implements CustomerDAO {
 
@@ -37,22 +37,31 @@ public class CustomerDAOImpl implements CustomerDAO {
         return true;
     }
 
-    public boolean search(Customer customer){
-        Session session=FactoryConfiguration.getInstance().getSession();
-        Transaction transaction=session.beginTransaction();
-        //session.se(customer);
-        transaction.commit();
-        session.close();
-        return true;
-    }
-//    public ArrayList<Customer> getAll(Customer object)  {
+//    public boolean search(Customer customer){
 //        Session session=FactoryConfiguration.getInstance().getSession();
 //        Transaction transaction=session.beginTransaction();
-//        session.get(object);
+//        //session.se(customer);
 //        transaction.commit();
 //        session.close();
 //        return true;
 //    }
+
+    @Override
+    public boolean search(Customer customer) {
+        return false;
+    }
+
+    public ArrayList<Customer> getAll()  {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+        Query query=session.createQuery("from Customer");
+        List<Customer> list=query.list();
+
+        transaction.commit();
+        session.close();
+
+        return list;
+    }
 
 
 }
