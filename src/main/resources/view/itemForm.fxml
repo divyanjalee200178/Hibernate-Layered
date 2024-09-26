@@ -5,9 +5,6 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.InnerShadow?>
-<?import javafx.scene.effect.Light.Distant?>
-<?import javafx.scene.effect.Lighting?>
-<?import javafx.scene.effect.Shadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
@@ -64,7 +61,7 @@
          <font>
             <Font size="14.0" />
          </font></Button>
-      <TableView fx:id="tblItem" layoutX="33.0" layoutY="225.0" prefHeight="181.0" prefWidth="584.0">
+      <TableView fx:id="tblItem" layoutX="33.0" layoutY="225.0" prefHeight="181.0" prefWidth="584.0" style="-fx-background-color: #f6eabe;">
         <columns>
           <TableColumn fx:id="colId" prefWidth="128.0" text="Code" />
           <TableColumn fx:id="colName" prefWidth="164.0" text="Name" />
@@ -72,18 +69,7 @@
             <TableColumn fx:id="colUnitPrice" prefWidth="155.0" text="UnitPrice" />
         </columns>
          <effect>
-            <Lighting diffuseConstant="2.0" specularConstant="0.0" specularExponent="0.0" surfaceScale="2.07">
-               <bumpInput>
-                  <Shadow />
-               </bumpInput>
-               <light>
-                  <Light.Distant>
-                     <color>
-                        <Color red="0.7631579041481018" green="0.5883853435516357" blue="0.5759015679359436" />
-                     </color>
-                  </Light.Distant>
-               </light>
-            </Lighting>
+            <InnerShadow />
          </effect>
       </TableView>
       <Text layoutX="58.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Code:" />
