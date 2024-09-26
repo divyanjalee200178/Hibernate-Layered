@@ -1,14 +1,16 @@
 package org.example.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.example.bo.custom.CustomerBO;
 import org.example.bo.custom.impl.CustomerBOImpl;
 import org.example.dto.CustomerDTO;
+import org.example.view.tdm.CustomerTm;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 
 public class CustomerFormController {
 
@@ -21,7 +23,7 @@ public class CustomerFormController {
     public Button btnUpdate;
     public Button btnDelete;
     public Button btnSearch;
-    public TableView<?> tblCustomer;
+    public TableView<CustomerTm> tblCustomer;
     public TableColumn<?, ?> clmId;
     public TableColumn<?, ?> clmName;
     public TableColumn<?, ?> clmAddress;
@@ -42,19 +44,25 @@ public class CustomerFormController {
     }
 
     private void loadAllCustomer() throws ClassNotFoundException {
-        tblCustomer.getItems().clear();
-//        try {
-//            /*Get all customers*/
-//            ArrayList<CustomerDTO> allCustomers = customerBO.getAllCustomers();
+        ObservableList<CustomerTm> obList= FXCollections.observableArrayList();
 
-//            for (CustomerDTO c : allCustomers) {
-//                tblCustomer.getItems().add(new CustomerDTO(c.getId(), c.getName(), c.getAddress(), c.getTel(), c.getEmail()));
-//            } catch(SQLException e){
-//                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-//            } catch(ClassNotFoundException e){
-//                new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-//            }
-//        }
+        try{
+            List<CustomerDTO> customerList=customerBO.getAllCustomers();
+            for(CustomerDTO customerDTO:customerList){
+                CustomerTm customerTm=new CustomerTm(
+                        customerDTO.getId(),
+                        customerDTO.getName(),
+                        customerDTO.getAddress(),
+                        customerDTO.getTel(),
+                        customerDTO.getEmail()
+                );
+                obList.add(customerTm);
+            }
+            tblCustomer.setItems(obList);
+        }
+        catch (Exception e){
+            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+        }
     }
 
 

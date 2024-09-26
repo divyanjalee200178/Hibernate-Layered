@@ -7,6 +7,7 @@ import org.example.dto.CustomerDTO;
 import org.example.entity.Customer;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CustomerBOImpl implements CustomerBO {
     CustomerDAO customerDAO=new CustomerDAOImpl();
@@ -25,11 +26,12 @@ public class CustomerBOImpl implements CustomerBO {
         return customerDAO.delete(new Customer(customerDTO.getId(),customerDTO.getName(),customerDTO.getAddress(),customerDTO.getTel(),customerDTO.getEmail()));
     }
 
-    public ArrayList<CustomerDTO> getAllCustomers() {
-        ArrayList<CustomerDTO> allCustomers= new ArrayList<>();
-        ArrayList<Customer> all = customerDAO.getAll();
+    public List<CustomerDTO> getAllCustomers() {
+        List<Customer> all = customerDAO.getAll();
+        List<CustomerDTO> allCustomers= new ArrayList<>();
         for (Customer c : all) {
-            allCustomers.add(new CustomerDTO(c.getId(),c.getName(),c.getAddress(),c.getTel(),c.getEmail()));
+            CustomerDTO customerDTO=new CustomerDTO(c.getId(),c.getName(),c.getAddress(),c.getTel(),c.getEmail());
+            allCustomers.add(customerDTO);
         }
         return allCustomers;
     }

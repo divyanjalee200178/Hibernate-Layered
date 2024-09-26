@@ -7,7 +7,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerDAOImpl implements CustomerDAO {
@@ -51,7 +50,7 @@ public class CustomerDAOImpl implements CustomerDAO {
         return false;
     }
 
-    public ArrayList<Customer> getAll()  {
+    public List<Customer> getAll()  {
         Session session = FactoryConfiguration.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
         Query query=session.createQuery("from Customer");
