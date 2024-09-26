@@ -1,75 +1,124 @@
 package org.example.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
-import org.example.bo.custom.CustomerBO;
+import javafx.stage.Stage;
 import org.example.bo.custom.ItemBO;
-import org.example.bo.custom.impl.CustomerBOImpl;
 import org.example.bo.custom.impl.ItemBOImpl;
-import org.example.dto.CustomerDTO;
+import javafx.scene.layout.AnchorPane;
 
-import javafx.event.ActionEvent;
-import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import org.example.bo.custom.CustomerBO;
-import org.example.bo.custom.impl.CustomerBOImpl;
-import org.example.dto.CustomerDTO;
 import org.example.dto.ItemDTO;
+import org.example.view.tdm.ItemTm;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
+import java.io.IOException;
+import java.util.List;
 
 
-    public class ItemFormController {
+public class ItemFormController {
         public TextField txtCode;
         public TextField txtName;
         public TextField txtQty;
         public TextField txtUnitPrice;
-
+        @FXML
+        private AnchorPane rootNode;
         public Button btnSave;
         public Button btnUpdate;
         public Button btnDelete;
-        public Button btnSearch;
-        public TableView<?> tblCustomer;
-        public TableColumn<?, ?> clmId;
-        public TableColumn<?, ?> clmName;
-        public TableColumn<?, ?> clmAddress;
-        public TableColumn<?, ?> clmEmail;
-        public TableColumn<?, ?> clmContact;
-        ItemBO itemBO = new ItemBOImpl();
-//    public void initialize() throws ClassNotFoundException {
-//        setCellValueFactory();
-//        loadAllCustomer();
-//    }
-//    private void setCellValueFactory(){
-//        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-//        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
-//        colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
-//        colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
-//        colTel.setCellValueFactory(new PropertyValueFactory<>("tel"));
-//
-//    }
-//
-//    private void loadAllCustomer() throws ClassNotFoundException {
-//        tblCustomer.getItems().clear();
-//        try {
-//            /*Get all customers*/
-//            ArrayList<CustomerDTO> allCustomers = customerBO.getAllCustomers();
-//
-//            for (CustomerDTO c : allCustomers) {
-//                tblCustomer.getItems().add(new CustomerDTO(c.getId(), c.getName(), c.getAddress(),c.getTel(),c.getEmail()));
-//        } catch (SQLException e) {
-//            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-//        } catch (ClassNotFoundException e) {
-//            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-//        }
-//    }
+        @FXML
+        private Button btnBack;
+
+        @FXML
+        private Button btnClear;
+
+        @FXML
+        private TableView<ItemTm> tblItem;
+
+        @FXML
+        private TableColumn<?, ?> colId;
+
+        @FXML
+        private TableColumn<?, ?> colName;
+
+        @FXML
+        private TableColumn<?, ?> colQty;
+
+        @FXML
+        private TableColumn<?, ?> colUnitPrice;
 
 
+    ItemBO itemBO = new ItemBOImpl();
+    public void initialize() throws ClassNotFoundException {
+        setCellValueFactory();
+        loadAllCustomer();
+    }
+    private void setCellValueFactory(){
+        colId.setCellValueFactory(new PropertyValueFactory<>("code"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colQty.setCellValueFactory(new PropertyValueFactory<>("Qty"));
+        colUnitPrice.setCellValueFactory(new PropertyValueFactory<>("UnitPrice"));
 
-        public void txtNameOnAction(ActionEvent actionEvent) {
 
+    }
+
+    private void loadAllCustomer() throws ClassNotFoundException {
+        ObservableList<ItemTm> obList= FXCollections.observableArrayList();
+
+        try{
+            List<ItemDTO> itemList=itemBO.getAllItems();
+            for(ItemDTO itemDTO:itemList){
+                ItemTm itemTm=new ItemTm(
+                        itemDTO.getCode(),
+                        itemDTO.getName(),
+                        itemDTO.getQty(),
+                        itemDTO.getUnitPrice()
+                );
+                obList.add(itemTm);
+            }
+            tblItem.setItems(obList);
         }
+        catch (Exception e){
+            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+        }
+    }
+
+        @FXML
+        void btnBackOnAction(ActionEvent event) throws IOException {
+            navigateToTheDashboardForm();
+        }
+
+    private void navigateToTheDashboardForm() throws IOException {
+        AnchorPane rootNode = FXMLLoader.load(this.getClass().getResource("/view/dashboardForm.fxml"));
+
+        Scene scene = new Scene(rootNode);
+
+        Stage stage = (Stage) this.rootNode.getScene().getWindow();
+        stage.setScene(scene);
+        stage.centerOnScreen();
+        stage.setTitle("Dashboard Form");
+    }
+
+        @FXML
+        void btnClearOnAction(ActionEvent event) {
+            clearFeilds();
+        }
+
+    private void clearFeilds() {
+        txtCode.setText("");
+        txtName.setText("");
+        txtQty.setText("");
+        txtUnitPrice.setText("");
+
+    }
+
+    public void txtNameOnAction(ActionEvent actionEvent) {
+        txtQty.requestFocus();
+    }
 
 
 
@@ -110,13 +159,15 @@ import java.util.ArrayList;
 //            }
         }
 
-        public void txtCodeOnAction(ActionEvent actionEvent) {
+        public void txtCodeOnAction(ActionEvent actionEvent){
+            txtName.requestFocus();
         }
 
         public void txtUnitPriceOnAction(ActionEvent actionEvent) {
         }
 
         public void txtQtyOnAction(ActionEvent actionEvent) {
+            txtUnitPrice.requestFocus();
         }
     }
 

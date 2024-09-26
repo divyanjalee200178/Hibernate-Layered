@@ -10,6 +10,9 @@ import org.example.dto.ItemDTO;
 import org.example.entity.Customer;
 import org.example.entity.Item;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ItemBOImpl implements ItemBO {
     ItemDAO itemDAO=new ItemDAOImpl();
 
@@ -26,5 +29,14 @@ public class ItemBOImpl implements ItemBO {
 
     public boolean search(ItemDTO itemDTO){
         return itemDAO.delete(new Item(itemDTO.getCode(),itemDTO.getName(),itemDTO.getQty(),itemDTO.getUnitPrice()));
+    }
+    public List<ItemDTO> getAllItems() {
+        List<Item> all = itemDAO.getAll();
+        List<ItemDTO> allCustomers= new ArrayList<>();
+        for (Item i : all) {
+            ItemDTO itemDTO=new ItemDTO(i.getCode(),i.getName(),i.getQty(),i.getUnitPrice());
+            allCustomers.add(itemDTO);
+        }
+        return allCustomers;
     }
 }

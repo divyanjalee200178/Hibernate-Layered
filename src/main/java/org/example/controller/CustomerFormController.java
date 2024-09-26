@@ -3,13 +3,20 @@ package org.example.controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+//import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import org.example.bo.custom.CustomerBO;
 import org.example.bo.custom.impl.CustomerBOImpl;
 import org.example.dto.CustomerDTO;
 import org.example.view.tdm.CustomerTm;
+import javafx.scene.layout.AnchorPane;
 
+import java.io.IOException;
 import java.util.List;
 
 public class CustomerFormController {
@@ -19,10 +26,17 @@ public class CustomerFormController {
     public TextField txtAddress;
     public TextField txtEmail;
     public TextField txtContact;
+    @FXML
+    private AnchorPane rootNode;
+
     public Button btnSave;
     public Button btnUpdate;
     public Button btnDelete;
-    public Button btnSearch;
+    @FXML
+    private Button btnBack;
+
+    @FXML
+    private Button btnClear;
     public TableView<CustomerTm> tblCustomer;
     public TableColumn<?, ?> clmId;
     public TableColumn<?, ?> clmName;
@@ -65,24 +79,54 @@ public class CustomerFormController {
         }
     }
 
+    @FXML
+    void btnBackOnAction(ActionEvent event) throws IOException {
+        navigateToTheDashboardForm();
+    }
+
+    private void navigateToTheDashboardForm() throws IOException {
+        AnchorPane rootNode = FXMLLoader.load(this.getClass().getResource("/view/dashboardForm.fxml"));
+
+        Scene scene = new Scene(rootNode);
+
+        Stage stage = (Stage) this.rootNode.getScene().getWindow();
+        stage.setScene(scene);
+        stage.centerOnScreen();
+        stage.setTitle("Dashboard Form");
+    }
+
+    @FXML
+    void btnClearOnAction(ActionEvent event) {
+        clearFeilds();
+    }
+
+    private void clearFeilds() {
+        txtId.setText("");
+        txtName.setText("");
+        txtAddress.setText("");
+        txtContact.setText("");
+        txtEmail.setText("");
+
+    }
 
     public void txtIdOnAction(ActionEvent actionEvent) {
         txtName.requestFocus();
     }
 
     public void txtNameOnAction(ActionEvent actionEvent) {
-        txtAddress.requestFocus();
+        txtEmail.requestFocus();
     }
 
     public void txtAddressOnAction(ActionEvent actionEvent) {
-        txtContact.requestFocus();
+
     }
 
     public void txtEmailOnAction(ActionEvent actionEvent) {
+        txtContact.requestFocus();
     }
 
     public void txtContactOnAction(ActionEvent actionEvent) {
-        txtEmail.requestFocus();
+        txtAddress.requestFocus();
     }
 
     public void btnSaveOnAction(ActionEvent actionEvent) {

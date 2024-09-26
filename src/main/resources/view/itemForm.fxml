@@ -1,36 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="466.0" prefWidth="616.0" style="-fx-background-color: #ffd700;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.ItemFormController">
+<AnchorPane fx:id="rootNode" prefHeight="501.0" prefWidth="654.0" style="-fx-background-color: #00ced1;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.ItemFormController">
    <children>
-      <Text fill="#ee1313" layoutX="226.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Item Form" textAlignment="CENTER" wrappingWidth="173.193359375">
+      <Text fill="#3a0aa1" layoutX="226.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Item Form" textAlignment="CENTER" wrappingWidth="173.193359375">
          <font>
             <Font name="Calibri Bold Italic" size="24.0" />
          </font>
       </Text>
-      <TextField fx:id="txtCode" layoutX="58.0" layoutY="90.0" onAction="#txtCodeOnAction" promptText="code" />
-      <TextField fx:id="txtName" layoutX="387.0" layoutY="90.0" onAction="#txtNameOnAction" promptText="name" />
-      <TextField fx:id="txtQty" layoutX="58.0" layoutY="150.0" onAction="#txtQtyOnAction" promptText="qty" />
-      <TextField fx:id="txtUnitPrice" layoutX="385.0" layoutY="150.0" onAction="#txtUnitPriceOnAction" promptText="unit price" />
-      <Button fx:id="btnSave" layoutX="133.0" layoutY="414.0" mnemonicParsing="false" onAction="#btnSaveOnAction" prefHeight="25.0" prefWidth="52.0" style="-fx-background-color: #5352a8;" text="save" />
-      <Button fx:id="btnUpdate" layoutX="255.0" layoutY="414.0" mnemonicParsing="false" onAction="#btnUpdateOnAction" style="-fx-background-color: gray;" text="update" />
-      <Button fx:id="btnDelete" layoutX="392.0" layoutY="414.0" mnemonicParsing="false" onAction="#btnDeleteOnAction" style="-fx-background-color: #a852a0;" text="delete" />
-      <TableView fx:id="tblCustomer" layoutX="31.0" layoutY="227.0" prefHeight="181.0" prefWidth="563.0">
+      <TextField fx:id="txtCode" layoutX="58.0" layoutY="90.0" onAction="#txtCodeOnAction" prefHeight="25.0" prefWidth="173.0" promptText="code">
+         <effect>
+            <InnerShadow>
+               <color>
+                  <Color red="0.13187134265899658" green="0.017543859779834747" blue="0.42105263471603394" />
+               </color>
+            </InnerShadow>
+         </effect></TextField>
+      <TextField fx:id="txtName" layoutX="410.0" layoutY="90.0" onAction="#txtNameOnAction" prefHeight="25.0" prefWidth="173.0" promptText="name">
+         <effect>
+            <InnerShadow>
+               <color>
+                  <Color red="0.07105263322591782" green="0.02631578966975212" blue="0.4736842215061188" />
+               </color>
+            </InnerShadow>
+         </effect></TextField>
+      <TextField fx:id="txtQty" layoutX="58.0" layoutY="150.0" onAction="#txtQtyOnAction" prefHeight="25.0" prefWidth="173.0" promptText="qty">
+         <effect>
+            <InnerShadow>
+               <color>
+                  <Color red="0.0742872804403305" green="0.01809210516512394" blue="0.3552631437778473" />
+               </color>
+            </InnerShadow>
+         </effect></TextField>
+      <TextField fx:id="txtUnitPrice" layoutX="410.0" layoutY="150.0" onAction="#txtUnitPriceOnAction" prefHeight="25.0" prefWidth="173.0" promptText="unit price">
+         <effect>
+            <InnerShadow>
+               <color>
+                  <Color red="0.09468811005353928" green="0.02296539954841137" blue="0.3815789520740509" />
+               </color>
+            </InnerShadow>
+         </effect></TextField>
+      <Button fx:id="btnSave" layoutX="62.0" layoutY="440.0" mnemonicParsing="false" onAction="#btnSaveOnAction" prefHeight="30.0" prefWidth="62.0" style="-fx-background-color: #5352a8;" text="save">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+      <Button fx:id="btnUpdate" layoutX="185.0" layoutY="440.0" mnemonicParsing="false" onAction="#btnUpdateOnAction" style="-fx-background-color: #228b22;" text="update">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+      <Button fx:id="btnDelete" layoutX="305.0" layoutY="440.0" mnemonicParsing="false" onAction="#btnDeleteOnAction" style="-fx-background-color: #ff0000;" text="delete">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+      <TableView fx:id="tblItem" layoutX="33.0" layoutY="225.0" prefHeight="181.0" prefWidth="584.0">
         <columns>
-          <TableColumn fx:id="clmId" prefWidth="90.66665649414062" text="ID" />
-          <TableColumn fx:id="clmName" prefWidth="120.0" text="Name" />
-            <TableColumn fx:id="clmAddress" prefWidth="118.0" text="Address" />
-            <TableColumn fx:id="clmEmail" prefWidth="124.66668701171875" text="Email" />
-            <TableColumn fx:id="clmContact" prefWidth="147.33331298828125" text="Contact" />
+          <TableColumn fx:id="colId" prefWidth="128.0" text="Code" />
+          <TableColumn fx:id="colName" prefWidth="164.0" text="Name" />
+            <TableColumn fx:id="colQty" prefWidth="136.0" text="Qty" />
+            <TableColumn fx:id="colUnitPrice" prefWidth="155.0" text="UnitPrice" />
         </columns>
+         <effect>
+            <Lighting diffuseConstant="2.0" specularConstant="0.0" specularExponent="0.0" surfaceScale="2.07">
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+               <light>
+                  <Light.Distant>
+                     <color>
+                        <Color red="0.7631579041481018" green="0.5883853435516357" blue="0.5759015679359436" />
+                     </color>
+                  </Light.Distant>
+               </light>
+            </Lighting>
+         </effect>
       </TableView>
       <Text layoutX="58.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Code:" />
-      <Text layoutX="382.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" />
+      <Text layoutX="408.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" />
       <Text layoutX="58.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Qty:" />
-      <Text layoutX="387.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unit price:" />
-      <Button fx:id="btnSearch" layoutX="498.0" layoutY="414.0" mnemonicParsing="false" onAction="#btnSearchOnAction" text="Search" />
+      <Text layoutX="408.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unit price:" />
+      <Button fx:id="btnClear" layoutX="425.0" layoutY="440.0" mnemonicParsing="false" onAction="#btnClearOnAction" prefHeight="30.0" prefWidth="62.0" style="-fx-background-color: #daa520;" text="Clear">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+      <Button fx:id="btnBack" layoutX="540.0" layoutY="440.0" mnemonicParsing="false" onAction="#btnBackOnAction" prefHeight="30.0" prefWidth="57.0" style="-fx-background-color: #ffff00;" text="Back">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
    </children>
+   <effect>
+      <InnerShadow />
+   </effect>
 </AnchorPane>
